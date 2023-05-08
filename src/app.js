@@ -19,7 +19,7 @@ app.use('/api/post/', (req,res,next)=>{
 }, posts);
 
 app.get('/', (req, res) => {
-    res.send('Hello, World!');
+    res.send('Hello, World!'); 
 });
 
 app.use(notFound);
