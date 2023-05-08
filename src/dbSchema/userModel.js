@@ -22,16 +22,17 @@ const userSchema = new mongoose.Schema({
         type: String
     },
     isAdmin: {
-        require: true,
+        require: false,
         type: Boolean
     },
     isEndUser: {
-        required: true,
+        required: false,
         type: Boolean
     },
     isContributor: {
-        required: true,
-        type: Boolean
+        required: false,
+        type: Boolean,
+        default: true
     }
 });
 
