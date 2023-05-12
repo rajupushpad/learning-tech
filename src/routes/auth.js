@@ -17,10 +17,10 @@ router.post('/signup', async(req, res) => {
 
     try {
         const dataToSave = await data.save();
-        res.status(200).json(dataToSave);
+        res.status(200).json({user: dataToSave});
     }
     catch (error) {
-        res.status(400).json({message: error.message});
+        res.status(400).json({user: {message: error.message}});
     }
 });
 
@@ -31,18 +31,26 @@ router.post('/login', async(req, res) => {
     let password= req.body.password;
 
     try {
-        const user = await userModel.findOne({email: email, password: password});
+        let user = await userModel.findOne({email: email, password: password});
 
         if(!user) {
-            res.status(200).json({message: 'User not exist'});
+            res.status(200).json({user: {message: 'User not exist'}});
             return;
         }
 
-        let token = createAuthToken(user);
-        res.status(200).json({token: token});
+        let resData = {
+                token: createAuthToken(user),
+                message: 'Logged in successfully',
+                email: user.email,
+                firstName: user.firstName,
+                lastName: user.lastName,
+                id: user.id
+            };
+
+        res.status(200).json({user: resData});
     }
     catch (error) {
-        res.status(400).json({message: error.message});
+        res.status(400).json({user: {message: error.message}});
     }
 });
 

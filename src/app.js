@@ -3,10 +3,12 @@ const helmet = require('helmet');
 const bodyParser = require('body-parser');
 const posts = require('./routes/posts');
 const auth = require('./routes/auth');
+var cors = require('cors')
 
 const { notFound, errorHandler, verifyUser } = require('./middlewares');
 
 const app = express();
+app.use(cors())
 
 require('dotenv').config();
 
