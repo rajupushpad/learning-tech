@@ -1,6 +1,6 @@
 const mangoose = require('mongoose');
 
-const categorySchema = new mangoose.Schema({
+const topicSchema = new mangoose.Schema({
     title: {
         required: true,
         type: String
@@ -9,10 +9,10 @@ const categorySchema = new mangoose.Schema({
         required: true,
         type: String
     },
-    categoryId: {
+    courseId: {
         required: true,
-        type: Number
+        type: String
     }
 });
 
-module.exports = mongoose.model('categoryData', categorySchema);
+module.exports = mangoose.model('topicData', topicSchema);

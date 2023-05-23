@@ -15,9 +15,21 @@ function errorHandler(err, req, res, next){
 }
 
 function verifyUser(req, res, next) {
+    
+    // bypass some of urls 
+    if(
+       (
+            req.baseUrl.includes('/api/category') || 
+            req.baseUrl.includes('/api/course')
+        ) && 
+        req.method == 'GET'
+    ) {
+        next();
+        return;
+    }
+
     const token = req.headers.authorization; 
     const decodedToken = jwt.verify(token,"1qw11qee33333" );
-
     if(decodedToken.userId) {
         let tmpBody = req.body;
         tmpBody.userId = parseInt(decodedToken.userId);

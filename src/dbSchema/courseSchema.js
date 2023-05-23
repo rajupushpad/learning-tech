@@ -1,6 +1,6 @@
 const mongoose = require('mongoose');
 
-const categorySchema = new mongoose.Schema({
+const courseSchema = new mongoose.Schema({
     title: {
         required: true,
         type: String
@@ -9,10 +9,14 @@ const categorySchema = new mongoose.Schema({
         required: true,
         type: String
     },
-    userId: {
+    price: {
+        required: true,
+        type: Number
+    },
+    categoryId: {
         required: true,
         type: Number
     }
 });
 
-module.exports = mongoose.model('categoryData', categorySchema)
+module.exports = mongoose.model('courseData', courseSchema)
