@@ -20,7 +20,8 @@ function verifyUser(req, res, next) {
     if(
        (
             req.baseUrl.includes('/api/category') || 
-            req.baseUrl.includes('/api/course')
+            req.baseUrl.includes('/api/course') ||
+            req.baseUrl.includes('/api/user')
         ) && 
         req.method == 'GET'
     ) {

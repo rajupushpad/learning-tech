@@ -12,6 +12,8 @@ const category = require('./routes/category');
 const course = require('./routes/course');
 const topic = require('./routes/topic');
 const content = require('./routes/content');
+const user = require('./routes/user');
+
 
 const { notFound, errorHandler, verifyUser } = require('./middlewares');
 
@@ -39,6 +41,10 @@ app.use('/api/topic/', (req,res,next)=>{
 app.use('/api/content/', (req,res,next)=>{
     verifyUser(req, res, next)
 }, content);
+
+app.use('/api/user/', (req,res,next)=>{
+    verifyUser(req, res, next)
+}, user);
 
 app.get('/', (req, res) => {
     res.send('Hello, World!'); 
