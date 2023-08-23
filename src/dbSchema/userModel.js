@@ -21,19 +21,11 @@ const userSchema = new mongoose.Schema({
         required: false,
         type: String
     },
-    isAdmin: {
-        require: false,
-        type: Boolean
-    },
-    isEndUser: {
-        required: false,
-        type: Boolean
-    },
-    isContributor: {
-        required: false,
-        type: Boolean,
-        default: true
-    }
+   role: {
+    required: false,
+    type: String,
+    default: 'student'
+   }
 });
 
 module.exports = mongoose.model('userData', userSchema)

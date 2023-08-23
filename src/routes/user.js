@@ -1,11 +1,12 @@
 const express = require('express');
 const database = require('../db/connection');
 const userData = require('../dbSchema/userModel');
+const enrollSchema = require('../dbSchema/enrollSchema');
 
 const router = express.Router();
 
-router.post('/add', async(req, res) => {
-    
+router.post('/add', async (req, res) => {
+
     let data;
     let dataToSave;
 
@@ -24,11 +25,11 @@ router.post('/add', async(req, res) => {
         });
     }
     catch (error) {
-        res.status(400).json({message: error.message, user: {}});
+        res.status(400).json({ message: error.message, user: {} });
     }
 });
 
-router.get('/all', async(req,res)=>{
+router.get('/all', async (req, res) => {
     try {
         const data = await userData.find();
         res.json({
@@ -37,11 +38,11 @@ router.get('/all', async(req,res)=>{
         })
     }
     catch (error) {
-        res.status(400).json({message: error.message});
+        res.status(400).json({ message: error.message });
     }
 });
 
-router.post('/update/:id', async(req,res)=>{
+router.post('/update/:id', async (req, res) => {
     try {
 
         const id = req.params.id;
@@ -57,28 +58,42 @@ router.post('/update/:id', async(req,res)=>{
             topic: result
         });
 
-    } catch(error) {
+    } catch (error) {
         res.status(400).json({ message: error.message, topic: {} });
     }
 });
 
-router.get('/:id', async(req,res)=>{
+router.get('/:id', async (req, res) => {
     try {
 
         const id = req.params.id;
-        const result = await userData.findById(id);
 
-        res.send({
-            message: "Topic fetched successfully.",
-            topic: result
-        });
+        let user = await userData.findById(id);
+        let registeredCourses=[];
 
-    } catch(e) {
-        res.status(400).json({ message: error.message, topic: {} });
+        try {
+            registeredCourses = await enrollSchema.find({ studentId: user.id });
+          
+        } catch (e) {
+        }
+
+        let resData = {
+            email: user.email,
+            firstName: user.firstName,
+            lastName: user.lastName,
+            id: user.id,
+            role: user.role,
+            registeredCourses: registeredCourses
+        };
+
+        res.status(200).json({ user: resData });
+
+    } catch (error) {
+        res.status(400).json({ message: error.message, user: {} });
     }
 });
 
-router.delete('/:id', async(req,res)=>{
+router.delete('/:id', async (req, res) => {
     try {
 
         const id = req.params.id;
@@ -89,7 +104,7 @@ router.delete('/:id', async(req,res)=>{
             user: result
         });
 
-    } catch(e) {
+    } catch (e) {
         res.status(400).json({ message: error.message });
     }
 });

@@ -13,7 +13,7 @@ const course = require('./routes/course');
 const topic = require('./routes/topic');
 const content = require('./routes/content');
 const user = require('./routes/user');
-
+const enrollment = require('./routes/enrollment');
 
 const { notFound, errorHandler, verifyUser } = require('./middlewares');
 
@@ -49,6 +49,10 @@ app.use('/api/user/', (req,res,next)=>{
 app.get('/', (req, res) => {
     res.send('Hello, World!'); 
 });
+
+app.use('/api/enrollment/', (req,res,next)=>{
+    verifyUser(req, res, next)
+}, enrollment);
 
 app.use(notFound);
 app.use(errorHandler);
