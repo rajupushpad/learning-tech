@@ -16,6 +16,10 @@ const courseSchema = new mongoose.Schema({
     categoryId: {
         required: true,
         type: Number
+    },
+    image: {
+        required: false,
+        type: String
     }
 });
 

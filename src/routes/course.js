@@ -17,7 +17,8 @@ router.post('/add', async(req, res) => {
             title: req.body.title,
             description: req.body.description,
             price: req.body.price,
-            categoryId: categoryId
+            categoryId: categoryId,
+            image: req.body.image
         });
 
         dataToSave = await data.save();
